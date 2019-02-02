@@ -1,0 +1,13 @@
+target/
+bin/
+src/main/webapp/WEB-INF/classes/
+.project
+.classpath
+.settings/
+.idea
+*.iml
+.svn
+.DS_Store
+*.ipr
+*.iws
+log4j.xml
