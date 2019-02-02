@@ -5,6 +5,7 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -14,7 +15,6 @@ import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -24,6 +24,12 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 /**
+ * field解释：https://my.oschina.net/liuyuantao/blog/1475657
+ * 未加权顺序
+ * document.author[John],position[salesperson]
+ * document.author[Jack],position[accounting]
+ * document.author[Marry],position[technician]
+ * document.author[Json],position[boss]
  * @author sen.huang
  * @date 2019/2/2.
  */
@@ -57,9 +63,13 @@ public class LuceneWeighting {
         for(int i=0;i<ids.length;i++){
             Document document = new Document();
             document.add(new StringField("id",ids[i],Field.Store.YES));
-            document.add(new StringField("author",authors[i],Field.Store.YES));
-            document.add(new StringField("position",positions[i],Field.Store.YES));
-            document.add(new StringField("title",titles[i],Field.Store.YES));
+            document.add(new TextField("author", authors[i], Field.Store.YES));
+            document.add(new StringField("position", positions[i], Field.Store.YES));
+            TextField field = new TextField("title", titles[i], Field.Store.YES);
+            if("boss".equals(positions[i])){
+//                field
+            }
+            document.add(field);
             document.add(new StringField("content",contents[i],Field.Store.NO));
             writer.addDocument(document);
             System.out.println(document.get("title"));
