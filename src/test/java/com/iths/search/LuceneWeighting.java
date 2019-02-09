@@ -57,6 +57,12 @@ public class LuceneWeighting {
         return new IndexWriter(dir,config);
     }
 
+    /**
+     * BoostQuery
+     * lucene7.0版本及之后Field不再支持设置Boost属性，需要使用BoostQuery来进行加权操作。
+     * 参见官网地址：http://lucene.apache.org/core/7_0_0/changes/Changes.html
+     * @throws IOException
+     */
     @Test
     public void testWrite() throws IOException {
         IndexWriter writer = getIndexWriter();
