@@ -37,8 +37,18 @@ public class Indexer {
         Analyzer analyzer = new StandardAnalyzer();
         //保存用于创建 IndexWriter 的所有配置。
         IndexWriterConfig iwConfig = new IndexWriterConfig(analyzer);
+        iwConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
         //实例化 IndexWriter
         writer = new IndexWriter(directory, iwConfig);
+    }
+
+    public void write(Document document) throws IOException {
+        writer.addDocument(document);
+    }
+
+    public void commitAndClose() throws IOException {
+        writer.commit();
+        writer.close();
     }
 
     /**
