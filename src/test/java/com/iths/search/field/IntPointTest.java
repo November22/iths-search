@@ -16,10 +16,8 @@ import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.packed.PackedInts;
 import org.junit.Before;
 import org.junit.Test;
-import sun.jvm.hotspot.oops.IntField;
 
 import java.io.IOException;
 import java.nio.file.Paths;
